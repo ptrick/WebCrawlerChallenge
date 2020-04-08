@@ -1,0 +1,20 @@
+{
+  "$schema": "./config.schema.json",
+  "words_to_discard":[
+    "S",
+    "Ms",
+    "Xp",
+    "Nt",
+    "U",
+    "Cp",
+    "M",
+    "N",
+    "Q",
+    "Oy",
+    "Th",
+    "W",
+    "Mu",
+    "P",
+    ""
+  ]
+}

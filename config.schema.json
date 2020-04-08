@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Config",
+  "definitions": {
+      "Config": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+              "$schema": {
+                  "type": "string",
+                  "description": "Points to the JSON schema for config validation."
+              },
+              "words_to_discard": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  },
+                  "description": "A list of words to discard from the crawler output. Capitalization doesn't matter."
+              }
+          },
+          "required": [
+              "$schema",
+              "words_to_discard"
+          ],
+          "title": "Config"
+      }
+  }
+}
