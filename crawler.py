@@ -201,4 +201,5 @@ def main() -> None:
 
   exit(err_code_success)
 
-main()
+if __name__ == "__main__":
+  main()

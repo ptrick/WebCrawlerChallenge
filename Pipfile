@@ -10,6 +10,7 @@ pylint = "*"
 beautifulsoup4 = "*"
 requests = "*"
 pandas = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.8"
