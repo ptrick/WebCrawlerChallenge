@@ -1,5 +1,6 @@
 {
   "$schema": "./config.schema.json",
+  "console_output_line_count": 10,
   "words_to_discard":[
     "S",
     "Ms",

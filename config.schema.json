@@ -10,6 +10,10 @@
                   "type": "string",
                   "description": "Points to the JSON schema for config validation."
               },
+              "console_output_line_count": {
+                  "type":"integer",
+                  "description": "The number of lines to show on the output in the console window."
+              },
               "words_to_discard": {
                   "type": "array",
                   "items": {

@@ -35,38 +35,35 @@ import pandas as pd
 import requests
 import time
 
+# These are globals; runtime config is in config.json file.
 wiki_url = 'https://en.wikipedia.org/wiki/Microsoft'
 err_code_success = 0
 err_code_fail = 1
-row_count = 10
 config_file = 'config.json'
 full_output_file = 'full_output.csv'
 
-def load_config(filename: str) -> Tuple[bool, List[str]]:
-  """Loads relevant information from the config file.
+def load_config(filename: str) -> Tuple[bool, Union[object, None]]:
+  """Loads the config file.
   Contains some basic error logging. For further validation,
   VSCode will automatically validate the config file as you
-  write it (based on the config.schema.json).
+  write it (based on the config.schema.json Json schema file).
 
   :param filename: The filename to read
   :returns: A tuple containing a success flag (True=success, False=fail), and
-  a string list containing words to discard.
+  the json object.
   """
-  words_to_discard: List[str] = []
   success = False
+  obj = None
   try:
     with open(filename, 'r') as fp:
       obj = json.load(fp)
-      words_to_discard = obj['words_to_discard']
       success = True
   except IOError:
     print('Failed to open config file.')
   except ValueError:
     print('Failed to parse config file. (JSON)')
-  except KeyError:
-    print('Failed to parse config file. (Schema)')
 
-  return (success, words_to_discard)
+  return (success, obj)
 
 def request_with_retry(url: str) -> Tuple[bool, Union[bytes, None]]:
   """Sends a GET request (without additional headers) to the specified URL
@@ -180,10 +177,13 @@ def filter_data(data: pd.Series, filter_words: List[str]) -> pd.Series:
 def main() -> None:
   """The main entrypoint of the program.
   """
-  success, words_to_discard = load_config(config_file)
+  success, obj = load_config(config_file)
   if not success:
     print('Config load failed. Exiting.')
     exit(err_code_fail)
+
+  row_count = obj['console_output_line_count']
+  words_to_discard = obj['words_to_discard']
 
   success, content = request_with_retry(wiki_url)
   if not success:
